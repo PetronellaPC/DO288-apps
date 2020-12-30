@@ -1,0 +1,43 @@
+    3  firewall-cmd --list-all
+    4  uname -r
+    5  cat /etc/redhat-release 
+    6  journalctl
+   20  whoami
+   22  lab-configure
+   23  git clone https://github.com/PetronellaPC/DO288-apps.git
+   25  lab docker-build start
+   29  cd DO288-apps/
+   30  git status
+   31  git checkout -b docker-build
+   32  git push -u origin docker-build 
+   34  gedit ubi-echo/Dockerfile 
+   36  source /usr/local/etc/ocp4.config
+   37  oc login -u ${RHT_OCP4_DEV_USER}  -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+   38  oc new-project docker-build
+   40  oc new-app --as-deployment-config --name echo https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#docker-build --context-dir ubi-echo
+   48  find / -name log
+   63  oc logs -f bc/echo
+   64  kubectl status
+   65  oc status
+   66  kubectl get pod
+   67  oc logs echo-1-pfgrx | tail -n 3
+   68  oc describe image echo
+   69  oc describe is echo
+   70  gedit ubi-echo/Dockerfile 
+   72  git status
+   73  git add .
+   74  git commit -m "modified command"
+   75  git push
+   76  oc start-build echo
+   77  oc describe bc echo 
+   78  oc describe bc echo > buildconfig.yaml
+   79  gedit buildconfig.yaml 
+   80  oc logs -h
+   81  oc logs -f bc/echo
+   82  gedit buildconfig.yaml 
+   83  oc status
+   84  oc get pod
+   85  oc logs echo-2-9sh7g | tail -n 3
+   86  oc delete all
+   87  oc delete --all
+   88  oc delete all -l app=echo

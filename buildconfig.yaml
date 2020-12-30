@@ -1,0 +1,36 @@
+Name:		echo
+Namespace:	docker-build
+Created:	20 minutes ago
+Labels:		app=echo
+		app.kubernetes.io/component=echo
+		app.kubernetes.io/instance=echo
+Annotations:	openshift.io/generated-by=OpenShiftNewApp
+Latest Version:	2
+
+Strategy:	Docker
+URL:		https://github.com/PetronellaPC/DO288-apps
+Ref:		docker-build
+ContextDir:	ubi-echo
+From Image:	ImageStreamTag ubi:8.0
+Output to:	ImageStreamTag echo:latest
+
+Build Run Policy:	Serial
+Triggered by:		Config, ImageChange
+Webhook GitHub:
+	URL:	https://api.eu45.prod.nextcle.com:6443/apis/build.openshift.io/v1/namespaces/docker-build/buildconfigs/echo/webhooks/<secret>/github
+Webhook Generic:
+	URL:		https://api.eu45.prod.nextcle.com:6443/apis/build.openshift.io/v1/namespaces/docker-build/buildconfigs/echo/webhooks/<secret>/generic
+	AllowEnv:	false
+Builds History Limit:
+	Successful:	5
+	Failed:		5
+
+Build	Status		Duration	Creation Time
+echo-2 	complete 	23s 		2020-12-30 08:20:24 -0500 EST
+echo-1 	complete 	25s 		2020-12-30 08:00:37 -0500 EST
+
+Events:
+  Type		Reason				Age			From			Message
+  ----		------				----			----			-------
+  Warning	BuildConfigInstantiateFailed	20m (x7 over 20m)	buildconfig-controller	error instantiating Build from BuildConfig docker-build/echo (0): Error resolving ImageStreamTag ubi:8.0 in namespace docker-build: unable to find latest tagged image
+  Warning	BuildConfigTriggerFailed	20m			buildconfig-controller	error triggering Build for BuildConfig docker-build/echo: Internal error occurred: build config docker-build/echo has already instantiated a build for imageid registry.access.redhat.com/ubi8/ubi@sha256:8275e2ad7f458e329bdc8c0e7543cff1729998fe515a281d49638246de8e39ee
